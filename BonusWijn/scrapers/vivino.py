@@ -54,7 +54,7 @@ def get_wine_from_URL(url):
     Returns
     -------
     req_wine : json
-        json of first win in search query.
+        json containing first few wines of search query.
     """
     req = requests.get(url, headers=HEADERS)
 
@@ -77,8 +77,10 @@ def get_wine_from_ID(url):
     Returns
     -------
     req_wine : json
-        json of first win in search query.
+        json of first wine in search query.
     """
+    req = requests.get(url, headers=HEADERS)
+
     # Search with ID
     id = re.findall("(?<=data-vintage=')\d+", req.text)
 
