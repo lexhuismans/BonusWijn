@@ -21,3 +21,10 @@ version: 2
             name: clean code
             command: |
               . venv/bin/activate
+              pip install --upgrade pip
+              pip install flake8
+              pip install black
+              pip install isort
+              flake8 scrapers
+              black scrapers
+              isort scrapers
