@@ -46,7 +46,6 @@ for wine in wines:
             wine_object['amountOfBottles'] = 1
             wine_object['originalPrice'] = wine['priceBeforeBonus']
             wine_object['bonusPrice'] = wine['currentPrice']
-
         bonus_wines.append(wine_object)
     except:
         print(wine)

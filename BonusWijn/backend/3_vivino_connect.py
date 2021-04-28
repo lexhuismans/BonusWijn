@@ -18,7 +18,7 @@ for wine in data:
     link = u"https://www.vivino.com/search/wines?q=" + temp
     normalided_link = unidecode.unidecode(link)
     try:
-        time.sleep(1.5)
+        time.sleep(2)
 
         response = urllib.request.urlopen(normalided_link)
 
@@ -36,7 +36,7 @@ for wine in data:
                 combined_data.append(wine)
                 break
     except:
-        print("error")
+        print(response)
         print(normalided_link)
 
 with open('./processed_data/ah_vivino_wines.json', 'w') as fout:
