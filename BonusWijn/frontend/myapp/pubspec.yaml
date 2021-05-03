@@ -50,7 +50,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:  
     - assets/images/temp_wijn.PNG
-    - assets/data/ah_vivino_wines.json
+    - assets/data/sorted_wines.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
