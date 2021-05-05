@@ -1,6 +1,4 @@
 import json
-import csv
-import pickle
 
 
 def format_price(price):
@@ -71,7 +69,7 @@ for wine in wines:
             wine_object['bonusPrice'] = 6.99
             wine_object['amountOfBottles'] = 1
         wine_object['pricePerBottle'] = wine_object['bonusPrice']/wine_object['amountOfBottles']
-        
+
         bonus_wines.append(wine_object)
     except:
         print(wine['title'])
