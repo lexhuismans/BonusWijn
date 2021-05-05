@@ -119,17 +119,3 @@ def format_for_use(wines):
             print(wine['title'])
 
     return formated_wines
-
-
-# get_all_from_query() # Get all wines from jumbo
-# Filter wines
-'''
-with open('./data/jumbo_wijn.json', 'r') as outfile:
-    data = json.load(outfile)
-
-wines = filter_products_jumbo(data)
-formated_wines = format_for_use(wines)
-
-with open('./data/jumbo_filtered_wines.json', 'w') as fout:
-    json.dump(formated_wines, fout)
-'''

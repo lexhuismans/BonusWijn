@@ -101,6 +101,7 @@ def add_vivino_data(file):
     with open('./processed_data/jumbo_vivino_wines.json', 'w') as fout:
         json.dump(combined_data, fout)
 
+    return combined_data
 
 if __name__ == "__main__":
     add_vivino_data("./data/jumbo_filtered_wines.json")
