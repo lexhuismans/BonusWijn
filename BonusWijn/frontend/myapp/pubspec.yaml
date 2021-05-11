@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  flutter_rating_bar: ^4.0.0
   flutter:
     sdk: flutter
 
@@ -49,7 +50,6 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:  
-    - assets/images/temp_wijn.PNG
     - assets/data/sorted_wines.json
     - assets/images/
 
