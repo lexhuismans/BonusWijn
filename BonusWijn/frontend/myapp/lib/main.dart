@@ -40,12 +40,56 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Colors.red,
         ),
         drawer: Drawer(
-            child: ListView(children: [
-          Container(height: 100.0, child: DrawerHeader(child: Text("Filters"))),
-          Row(children: [
-            Text("Prijs: "),
-            Text("€" + price.toString()),
+            child: ListView(padding: EdgeInsets.zero, children: [
+          Container(
+              height: 100,
+              child: DrawerHeader(
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Text("Filters", style: TextStyle(fontSize: 20))))),
+          Divider(
+            color: Colors.grey[300],
+            height: 5,
+            thickness: 1,
+          ),
+          ListTile(
+              title: Text("AH"),
+              subtitle: Text("Include wines from Albert Heijn"),
+              trailing: Switch(
+                  activeColor: Colors.red,
+                  value: ah,
+                  onChanged: (value) {
+                    setState(() {
+                      ah = value;
+                    });
+                  })),
+          Divider(
+            color: Colors.grey[300],
+            height: 5,
+            thickness: 1,
+          ),
+          ListTile(
+            title: Text("Gall"),
+            subtitle: Text("Include wines from Gall&Gall"),
+            trailing: Switch(
+                activeColor: Colors.red,
+                value: gall,
+                onChanged: (value) {
+                  setState(() {
+                    gall = value;
+                  });
+                }),
+          ),
+          Divider(
+            color: Colors.grey[300],
+            height: 5,
+            thickness: 1,
+          ),
+          Column(children: [
+            Text("Max prijs: " + "€" + price.toString(),
+                style: TextStyle(fontWeight: FontWeight.bold)),
             Slider(
+              activeColor: Colors.red,
               value: price,
               min: 0,
               max: 30,
@@ -54,28 +98,6 @@ class _MyAppState extends State<MyApp> {
               onChanged: (value) => setState(() => this.price = value),
             ),
           ]),
-          Row(children: [
-            Text("AH"),
-            Switch(
-                value: ah,
-                onChanged: (value) {
-                  setState(() {
-                    ah = value;
-                  });
-                })
-          ]),
-          Row(
-            children: [
-              Text("Gall"),
-              Switch(
-                  value: gall,
-                  onChanged: (value) {
-                    setState(() {
-                      gall = value;
-                    });
-                  })
-            ],
-          )
         ])),
         body: Center(
           child: WineList(widget.data, this.price, this.ah, this.gall),
@@ -148,7 +170,11 @@ class Wine extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(this.name, style: TextStyle(fontSize: 15)),
+                      Text(
+                        this.name,
+                        style: TextStyle(fontSize: 15),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       Row(children: [
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
