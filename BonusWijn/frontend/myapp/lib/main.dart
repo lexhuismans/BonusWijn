@@ -58,50 +58,48 @@ class _MyAppState extends State<MyApp> {
             height: 5,
             thickness: 1,
           ),
-          ListTile(
-              title: Text("AH"),
-              subtitle: Text("Include wines from Albert Heijn"),
-              trailing: Switch(
-                  activeColor: Colors.red,
-                  value: ah,
-                  onChanged: (value) {
-                    setState(() {
-                      ah = value;
-                    });
-                  })),
-          Divider(
-            color: Colors.grey[300],
-            height: 5,
-            thickness: 1,
-          ),
-          ListTile(
-            title: Text("Gall"),
-            subtitle: Text("Include wines from Gall&Gall"),
-            trailing: Switch(
-                activeColor: Colors.red,
-                value: gall,
-                onChanged: (value) {
-                  setState(() {
-                    gall = value;
-                  });
-                }),
+          SwitchListTile(
+            title: Text('Albert Heijn'),
+            value: ah,
+            activeColor: Colors.red,
+            onChanged: (value) {
+              setState(() {
+                ah = value;
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
           ),
           Divider(
             color: Colors.grey[300],
             height: 5,
             thickness: 1,
           ),
-          ListTile(
-            title: Text("Jumbo"),
-            subtitle: Text("Include wines from Jumbo"),
-            trailing: Switch(
-                activeColor: Colors.red,
-                value: jumbo,
-                onChanged: (value) {
-                  setState(() {
-                    jumbo = value;
-                  });
-                }),
+          SwitchListTile(
+            title: Text('Gall & Gall'),
+            value: gall,
+            activeColor: Colors.red,
+            onChanged: (value) {
+              setState(() {
+                gall = value;
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+          Divider(
+            color: Colors.grey[300],
+            height: 5,
+            thickness: 1,
+          ),
+          SwitchListTile(
+            title: Text('Jumbo'),
+            value: jumbo,
+            activeColor: Colors.red,
+            onChanged: (value) {
+              setState(() {
+                jumbo = value;
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
           ),
           Divider(
             color: Colors.grey[500],
@@ -310,10 +308,12 @@ class Wine extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        this.name,
-                        style: TextStyle(fontSize: 15),
-                        overflow: TextOverflow.ellipsis,
+                      Flexible(
+                        child: Text(
+                          this.name,
+                          style: TextStyle(fontSize: 15),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       Row(children: [
                         Column(
