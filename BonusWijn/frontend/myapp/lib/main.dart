@@ -28,6 +28,7 @@ class _MyAppState extends State<MyApp> {
   double price = 30;
   bool ah = true;
   bool gall = true;
+  bool jumbo = true;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +86,23 @@ class _MyAppState extends State<MyApp> {
             height: 5,
             thickness: 1,
           ),
+          ListTile(
+            title: Text("Jumbo"),
+            subtitle: Text("Include wines from Jumbo"),
+            trailing: Switch(
+                activeColor: Colors.red,
+                value: jumbo,
+                onChanged: (value) {
+                  setState(() {
+                    jumbo = value;
+                  });
+                }),
+          ),
+          Divider(
+            color: Colors.grey[300],
+            height: 5,
+            thickness: 1,
+          ),
           Column(children: [
             Text("Max prijs: " + "€" + price.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold)),
@@ -99,8 +117,11 @@ class _MyAppState extends State<MyApp> {
             ),
           ]),
         ])),
+
+        // Body of the webapp
         body: Center(
-          child: WineList(widget.data, this.price, this.ah, this.gall),
+          child:
+              WineList(widget.data, this.price, this.ah, this.gall, this.jumbo),
         ),
       ),
     );
@@ -108,12 +129,13 @@ class _MyAppState extends State<MyApp> {
 }
 
 class WineList extends StatelessWidget {
-  const WineList(this.wine_data, this.price, this.ah, this.gall);
+  const WineList(this.wine_data, this.price, this.ah, this.gall, this.jumbo);
 
   final List wine_data;
   final double price;
   final bool ah;
   final bool gall;
+  final bool jumbo;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +147,9 @@ class WineList extends StatelessWidget {
         final store = item['store'];
 
         if (item['bonusPrice'] <= price &&
-            ((ah && store == 'AH') || (gall && store == "GALL"))) {
+            ((ah && store == 'AH') ||
+                (gall && store == "GALL") ||
+                jumbo && store == 'Jumbo')) {
           return Container(
             height: 100,
             child: Center(
@@ -135,7 +159,8 @@ class WineList extends StatelessWidget {
                     wine_data[index]['bonusPrice'],
                     wine_data[index]['rating'],
                     wine_data[index]['numberOfReviews'],
-                    wine_data[index]['store'])),
+                    wine_data[index]['store'],
+                    item['type'])),
           );
         } else {
           return Container(height: 0.0001);
@@ -148,7 +173,7 @@ class WineList extends StatelessWidget {
 
 class Wine extends StatelessWidget {
   const Wine(this.name, this.original_price, this.bonus_price, this.rating,
-      this.reviews, this.store);
+      this.reviews, this.store, this.type);
 
   final String name;
   final double original_price;
@@ -156,6 +181,7 @@ class Wine extends StatelessWidget {
   final double rating;
   final int reviews;
   final String store;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
