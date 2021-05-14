@@ -98,8 +98,8 @@ def add_vivino_data(file = "./data/jumbo_filtered_wines.json"):
 
         # Get rating and number of review
         wine_data = vivino_data['vintage']['wine']
-        wine['rating'] = wine_data['vintages'][0]['statistics']['ratings_average']
-        wine['numberOfReviews'] = wine_data['vintages'][0]['statistics']['ratings_count']
+        wine['rating'] = wine_data['vintages'][1]['statistics']['ratings_average']
+        wine['numberOfReviews'] = wine_data['vintages'][1]['statistics']['ratings_count']
         #wine['title'] = vivino_data['name']  # Change to vivino title
         print(wine['title'])
 
