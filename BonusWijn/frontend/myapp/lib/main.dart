@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'BonusWijn.nl',
       home: Scaffold(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Colors.red[300],
         appBar: AppBar(
           title: Text('Wijn Ladder'),
           backgroundColor: Colors.red[900],
@@ -126,76 +126,76 @@ class _MyAppState extends State<MyApp> {
             height: 5,
             thickness: 1,
           ),
-          SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                CheckboxListTile(
-                  title: Text("Rood"),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: type_red,
-                  onChanged: (value) {
-                    setState(() {
-                      type_red = value!;
-                    });
-                  },
-                  activeColor: Colors.red[700],
-                  checkColor: Colors.white,
-                ),
-                Divider(color: Colors.grey.shade400, height: 1.0),
-                CheckboxListTile(
-                  title: Text("Wit"),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: type_white,
-                  onChanged: (value) {
-                    setState(() {
-                      type_white = value!;
-                    });
-                  },
-                  activeColor: Colors.yellow[100],
-                  checkColor: Colors.white,
-                ),
-                Divider(color: Colors.grey.shade400, height: 1.0),
-                CheckboxListTile(
-                  title: Text("Rose"),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: type_rose,
-                  onChanged: (value) {
-                    setState(() {
-                      type_rose = value!;
-                    });
-                  },
-                  activeColor: Colors.red[100],
-                  checkColor: Colors.white,
-                ),
-                Divider(color: Colors.grey.shade400, height: 1.0),
-                CheckboxListTile(
-                  title: Text("Bubbles"),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: type_bubbles,
-                  onChanged: (value) {
-                    setState(() {
-                      type_bubbles = value!;
-                    });
-                  },
-                  activeColor: Colors.yellow[50],
-                  checkColor: Colors.white,
-                ),
-                Divider(color: Colors.grey.shade400, height: 1.0),
-                CheckboxListTile(
-                  title: Text("Other"),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: type_other,
-                  onChanged: (value) {
-                    setState(() {
-                      type_other = value!;
-                    });
-                  },
-                  activeColor: Colors.grey[400],
-                  checkColor: Colors.white,
-                ),
-                Divider(color: Colors.grey.shade500, height: 1.0),
-              ])),
+          ExpansionTile(
+            title: Text('Kleur'),
+            children: [
+              CheckboxListTile(
+                title: Text("Rood"),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: type_red,
+                onChanged: (value) {
+                  setState(() {
+                    type_red = value!;
+                  });
+                },
+                activeColor: Colors.red[700],
+                checkColor: Colors.white,
+              ),
+              Divider(color: Colors.grey.shade400, height: 1.0),
+              CheckboxListTile(
+                title: Text("Wit"),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: type_white,
+                onChanged: (value) {
+                  setState(() {
+                    type_white = value!;
+                  });
+                },
+                activeColor: Colors.yellow[100],
+                checkColor: Colors.white,
+              ),
+              Divider(color: Colors.grey.shade400, height: 1.0),
+              CheckboxListTile(
+                title: Text("Rose"),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: type_rose,
+                onChanged: (value) {
+                  setState(() {
+                    type_rose = value!;
+                  });
+                },
+                activeColor: Colors.red[100],
+                checkColor: Colors.white,
+              ),
+              Divider(color: Colors.grey.shade400, height: 1.0),
+              CheckboxListTile(
+                title: Text("Bubbles"),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: type_bubbles,
+                onChanged: (value) {
+                  setState(() {
+                    type_bubbles = value!;
+                  });
+                },
+                activeColor: Colors.yellow[50],
+                checkColor: Colors.white,
+              ),
+              Divider(color: Colors.grey.shade400, height: 1.0),
+              CheckboxListTile(
+                title: Text("Other"),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: type_other,
+                onChanged: (value) {
+                  setState(() {
+                    type_other = value!;
+                  });
+                },
+                activeColor: Colors.grey[400],
+                checkColor: Colors.white,
+              ),
+            ],
+          ),
+          Divider(color: Colors.grey.shade500, height: 1.0),
         ])),
 
         // Body of the webapp
