@@ -29,6 +29,10 @@ class _MyAppState extends State<MyApp> {
   bool ah = true;
   bool gall = true;
   bool jumbo = true;
+  bool type_red = true;
+  bool type_white = true;
+  bool type_rose = true;
+  bool type_bubbles = true;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +41,8 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
-          title: Text('De Beste Deals'),
-          backgroundColor: Colors.red,
+          title: Text('Wijn Ladder'),
+          backgroundColor: Colors.red[900],
         ),
         drawer: Drawer(
             child: ListView(padding: EdgeInsets.zero, children: [
@@ -116,6 +120,67 @@ class _MyAppState extends State<MyApp> {
               onChanged: (value) => setState(() => this.price = value),
             ),
           ]),
+          Divider(
+            color: Colors.grey[300],
+            height: 5,
+            thickness: 1,
+          ),
+          SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                CheckboxListTile(
+                  title: Text("Rood"),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: type_red,
+                  onChanged: (value) {
+                    setState(() {
+                      type_red = value!;
+                    });
+                  },
+                  activeColor: Colors.red[700],
+                  checkColor: Colors.white,
+                ),
+                Divider(color: Colors.grey.shade400, indent: 72.0, height: 1.0),
+                CheckboxListTile(
+                  title: Text("Wit"),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: type_white,
+                  onChanged: (value) {
+                    setState(() {
+                      type_white = value!;
+                    });
+                  },
+                  activeColor: Colors.yellow[100],
+                  checkColor: Colors.white,
+                ),
+                Divider(color: Colors.grey.shade400, indent: 72.0, height: 1.0),
+                CheckboxListTile(
+                  title: Text("Rose"),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: type_rose,
+                  onChanged: (value) {
+                    setState(() {
+                      type_rose = value!;
+                    });
+                  },
+                  activeColor: Colors.red[100],
+                  checkColor: Colors.white,
+                ),
+                Divider(color: Colors.grey.shade400, indent: 72.0, height: 1.0),
+                CheckboxListTile(
+                  title: Text("Bubbles"),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: type_bubbles,
+                  onChanged: (value) {
+                    setState(() {
+                      type_bubbles = value!;
+                    });
+                  },
+                  activeColor: Colors.yellow[50],
+                  checkColor: Colors.white,
+                ),
+              ])),
         ])),
 
         // Body of the webapp
@@ -234,8 +299,8 @@ class Wine extends StatelessWidget {
                           RatingBarIndicator(
                             rating: this.rating,
                             itemBuilder: (context, index) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
+                              Icons.brightness_1_rounded,
+                              color: Colors.red[700],
                             ),
                             itemCount: 5,
                             itemSize: 10.0,
