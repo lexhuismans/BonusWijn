@@ -1,4 +1,6 @@
 import json
+import pprint
+import time
 import re
 
 import requests
@@ -10,9 +12,9 @@ JSONHEADERS = {
     "Accept-Language": "en-us",
     "Host": "www.vivino.com",
     "User-Agent": "android/6.29.3 Model/phone Android/7.0-API24",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Connection": "keep-alive",
-    "X-Requested-With": "XMLHttpRequest",
+    #"Accept-Encoding": "gzip, deflate, br",
+    #"Connection": "keep-alive",
+    #"X-Requested-With": "XMLHttpRequest",
 }
 
 HEADERS = {
@@ -71,19 +73,20 @@ def get_first_wine_url(url):
     PARAMS = {"vintage_id": int(id[0])}
 
     # Get json from ID
-    url_find = "https://www.vivino.com/api/checkout_prices?"
-    req_wine = requests.get(url_find, headers=JSONHEADERS, params=PARAMS)
-
+    #url_find = "https://www.vivino.com/api/checkout_prices?"
+    #req_wine = requests.get(url_find, headers=JSONHEADERS, params=PARAMS)
+    url_find = "https://www.vivino.com/api/vintages/" + id[0]
+    req_wine = requests.get(url_find, headers=JSONHEADERS)
     return req_wine.json()
 
 
 def get_json_from_query(query):
     temp = query.replace(" ", "+")
     link = u"https://www.vivino.com/search/wines?q=" + temp
-    return get_wine_of_url(link)
+    return get_first_wine_url(link)
 
 
-def add_vivino_data(file):
+def add_vivino_data(file = "./data/jumbo_filtered_wines.json"):
     with open(file, "r") as read_file:
         data = json.load(read_file)
 
@@ -94,14 +97,50 @@ def add_vivino_data(file):
         vivino_data = get_json_from_query(title)
 
         # Get rating and number of review
-        wine['rating'] = vivino_data[0]['aggregateRating']['ratingValue']
-        wine['numberOfReviews'] = vivino_data[0]['aggregateRating']['reviewCount']
+        wine_data = vivino_data['vintage']['wine']
+        wine['rating'] = wine_data['vintages'][0]['statistics']['ratings_average']
+        wine['numberOfReviews'] = wine_data['vintages'][0]['statistics']['ratings_count']
+        #wine['title'] = vivino_data['name']  # Change to vivino title
+        print(wine['title'])
+
+        # Grape
+        try:
+            wine['grape'] = wine_data['grapes'][0]['name']
+            wine['grape_count'] = wine_data['grapes'][0]['wines_count']
+        except IndexError:
+            wine['grape'] = 'Other'
+            wine['grape_count'] = 0
+
+        # Type
+        type = wine_data['type_id']
+        if type == 1:
+            wine['type'] = 'Red'
+        elif type == 2:
+            wine['type'] = 'White'
+        elif type == 3:
+            wine['type'] = 'Bubbles'
+        elif type == 4:
+            wine['type'] = 'Ros\u00e9'
+        else:
+            wine['type'] = 'Other'
+
+        # Region
+        try:
+            wine['country'] = wine_data['region']['country']['name']
+            wine['region'] = wine_data['region']['name']
+        except TypeError:
+            wine['country'] = 'Other'
+            wine['region'] = 'Other'
         combined_data.append(wine)
 
-    with open('./processed_data/jumbo_vivino_wines.json', 'w') as fout:
+        time.sleep(3)
+
+    with open(file, 'w') as fout:
         json.dump(combined_data, fout)
 
     return combined_data
 
 if __name__ == "__main__":
-    add_vivino_data("./data/jumbo_filtered_wines.json")
+    #data = get_first_wine_url("https://www.vivino.com/search/wines?q=Viñas+del+Vero+Luces+blanco")
+    add_vivino_data("./processed_data/sorted_wines.json")
+    #print(pprint.pprint(data))
