@@ -196,6 +196,10 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           Divider(color: Colors.grey.shade500, height: 1.0),
+          ExpansionTile(
+            title: Text('Land'),
+            children: [],
+          ),
         ])),
 
         // Body of the webapp
