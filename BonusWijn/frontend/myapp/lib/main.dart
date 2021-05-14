@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
   bool type_white = true;
   bool type_rose = true;
   bool type_bubbles = true;
+  bool type_other = true;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                 }),
           ),
           Divider(
-            color: Colors.grey[300],
+            color: Colors.grey[500],
             height: 5,
             thickness: 1,
           ),
@@ -121,7 +122,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ]),
           Divider(
-            color: Colors.grey[300],
+            color: Colors.grey[500],
             height: 5,
             thickness: 1,
           ),
@@ -141,7 +142,7 @@ class _MyAppState extends State<MyApp> {
                   activeColor: Colors.red[700],
                   checkColor: Colors.white,
                 ),
-                Divider(color: Colors.grey.shade400, indent: 72.0, height: 1.0),
+                Divider(color: Colors.grey.shade400, height: 1.0),
                 CheckboxListTile(
                   title: Text("Wit"),
                   controlAffinity: ListTileControlAffinity.leading,
@@ -154,7 +155,7 @@ class _MyAppState extends State<MyApp> {
                   activeColor: Colors.yellow[100],
                   checkColor: Colors.white,
                 ),
-                Divider(color: Colors.grey.shade400, indent: 72.0, height: 1.0),
+                Divider(color: Colors.grey.shade400, height: 1.0),
                 CheckboxListTile(
                   title: Text("Rose"),
                   controlAffinity: ListTileControlAffinity.leading,
@@ -167,7 +168,7 @@ class _MyAppState extends State<MyApp> {
                   activeColor: Colors.red[100],
                   checkColor: Colors.white,
                 ),
-                Divider(color: Colors.grey.shade400, indent: 72.0, height: 1.0),
+                Divider(color: Colors.grey.shade400, height: 1.0),
                 CheckboxListTile(
                   title: Text("Bubbles"),
                   controlAffinity: ListTileControlAffinity.leading,
@@ -180,13 +181,36 @@ class _MyAppState extends State<MyApp> {
                   activeColor: Colors.yellow[50],
                   checkColor: Colors.white,
                 ),
+                Divider(color: Colors.grey.shade400, height: 1.0),
+                CheckboxListTile(
+                  title: Text("Other"),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: type_other,
+                  onChanged: (value) {
+                    setState(() {
+                      type_other = value!;
+                    });
+                  },
+                  activeColor: Colors.grey[400],
+                  checkColor: Colors.white,
+                ),
+                Divider(color: Colors.grey.shade500, height: 1.0),
               ])),
         ])),
 
         // Body of the webapp
         body: Center(
-          child:
-              WineList(widget.data, this.price, this.ah, this.gall, this.jumbo),
+          child: WineList(
+              widget.data,
+              this.price,
+              this.ah,
+              this.gall,
+              this.jumbo,
+              this.type_red,
+              this.type_white,
+              this.type_rose,
+              this.type_bubbles,
+              this.type_other),
         ),
       ),
     );
@@ -194,13 +218,28 @@ class _MyAppState extends State<MyApp> {
 }
 
 class WineList extends StatelessWidget {
-  const WineList(this.wine_data, this.price, this.ah, this.gall, this.jumbo);
+  const WineList(
+      this.wine_data,
+      this.price,
+      this.ah,
+      this.gall,
+      this.jumbo,
+      this.type_red,
+      this.type_white,
+      this.type_rose,
+      this.type_bubbles,
+      this.type_other);
 
   final List wine_data;
   final double price;
   final bool ah;
   final bool gall;
   final bool jumbo;
+  final bool type_red;
+  final bool type_white;
+  final bool type_rose;
+  final bool type_bubbles;
+  final bool type_other;
 
   @override
   Widget build(BuildContext context) {
@@ -210,11 +249,16 @@ class WineList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final item = wine_data[index];
         final store = item['store'];
+        final type = item['type'];
 
         if (item['bonusPrice'] <= price &&
             ((ah && store == 'AH') ||
                 (gall && store == "GALL") ||
-                jumbo && store == 'Jumbo')) {
+                (jumbo && store == 'Jumbo')) &&
+            ((type_red && type == 'Red') ||
+                (type_rose && type == 'Ros\u00e9') ||
+                (type_white && type == 'White') ||
+                (type_bubbles && type == 'Bubbles'))) {
           return Container(
             height: 100,
             child: Center(
@@ -236,6 +280,7 @@ class WineList extends StatelessWidget {
   }
 }
 
+// Tiles
 class Wine extends StatelessWidget {
   const Wine(this.name, this.original_price, this.bonus_price, this.rating,
       this.reviews, this.store, this.type);
