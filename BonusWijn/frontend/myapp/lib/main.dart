@@ -39,11 +39,34 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BonusWijn.nl',
+      // Everything for our colors/text etc.
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: Colors.blue,
+          ),
+        ),
+        primaryColor: Colors.red[900],
+        primaryTextTheme: TextTheme(
+          bodyText1: TextStyle(color: Colors.yellow),
+          bodyText2: TextStyle(color: Colors.purple),
+          headline1: TextStyle(color: Colors.blue),
+          headline5: TextStyle(color: Colors.blue),
+        ),
+        canvasColor: Colors.red[200],
+        textTheme: TextTheme(
+          bodyText1: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyText2: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       home: Scaffold(
-        backgroundColor: Colors.red[300],
         appBar: AppBar(
           title: Text('Wijn Ladder'),
-          backgroundColor: Colors.red[900],
         ),
         drawer: Drawer(
             child: ListView(padding: EdgeInsets.zero, children: [
