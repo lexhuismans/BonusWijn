@@ -148,7 +148,7 @@ class _MyAppState extends State<MyApp> {
             thickness: 1,
           ),
           ExpansionTile(
-            title: Text('Kleur'),
+            title: Text('Soort'),
             children: [
               CheckboxListTile(
                 title: Text("Rood"),
@@ -172,7 +172,7 @@ class _MyAppState extends State<MyApp> {
                     type_white = value!;
                   });
                 },
-                activeColor: Colors.yellow[100],
+                activeColor: Colors.red[700],
                 checkColor: Colors.white,
               ),
               Divider(color: Colors.grey.shade400, height: 1.0),
@@ -185,7 +185,7 @@ class _MyAppState extends State<MyApp> {
                     type_rose = value!;
                   });
                 },
-                activeColor: Colors.red[100],
+                activeColor: Colors.red[700],
                 checkColor: Colors.white,
               ),
               Divider(color: Colors.grey.shade400, height: 1.0),
@@ -198,7 +198,7 @@ class _MyAppState extends State<MyApp> {
                     type_bubbles = value!;
                   });
                 },
-                activeColor: Colors.yellow[50],
+                activeColor: Colors.red[700],
                 checkColor: Colors.white,
               ),
               Divider(color: Colors.grey.shade400, height: 1.0),
@@ -211,7 +211,7 @@ class _MyAppState extends State<MyApp> {
                     type_other = value!;
                   });
                 },
-                activeColor: Colors.grey[400],
+                activeColor: Colors.red[700],
                 checkColor: Colors.white,
               ),
             ],
