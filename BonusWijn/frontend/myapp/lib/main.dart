@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'BonusWijn.nl',
+      title: 'wijnladder.nl',
       // Everything for our colors/text etc.
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -328,16 +328,16 @@ class Wine extends StatelessWidget {
                 child: Row(children: [
                   Image.asset(
                       'assets/images/' + name.replaceAll(" ", "") + ".PNG"),
-                  Column(
+                  Expanded(
+                      child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
-                        child: Text(
-                          this.name,
-                          style: TextStyle(fontSize: 15),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                      Expanded(
+                          child: Text(
+                        this.name,
+                        style: TextStyle(fontSize: 15),
+                        overflow: TextOverflow.ellipsis,
+                      )),
                       Row(children: [
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -385,7 +385,7 @@ class Wine extends StatelessWidget {
                         ]),
                       ])
                     ],
-                  )
+                  ))
                 ]))));
   }
 }
