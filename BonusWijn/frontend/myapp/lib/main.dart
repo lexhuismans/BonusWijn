@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'BonusWijn.nl',
+      title: 'wijnladder.nl',
       // Everything for our colors/text etc.
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -148,7 +148,7 @@ class _MyAppState extends State<MyApp> {
             thickness: 1,
           ),
           ExpansionTile(
-            title: Text('Kleur'),
+            title: Text('Soort'),
             children: [
               CheckboxListTile(
                 title: Text("Rood"),
@@ -172,7 +172,7 @@ class _MyAppState extends State<MyApp> {
                     type_white = value!;
                   });
                 },
-                activeColor: Colors.yellow[100],
+                activeColor: Colors.red[700],
                 checkColor: Colors.white,
               ),
               Divider(color: Colors.grey.shade400, height: 1.0),
@@ -185,7 +185,7 @@ class _MyAppState extends State<MyApp> {
                     type_rose = value!;
                   });
                 },
-                activeColor: Colors.red[100],
+                activeColor: Colors.red[700],
                 checkColor: Colors.white,
               ),
               Divider(color: Colors.grey.shade400, height: 1.0),
@@ -198,7 +198,7 @@ class _MyAppState extends State<MyApp> {
                     type_bubbles = value!;
                   });
                 },
-                activeColor: Colors.yellow[50],
+                activeColor: Colors.red[700],
                 checkColor: Colors.white,
               ),
               Divider(color: Colors.grey.shade400, height: 1.0),
@@ -211,7 +211,7 @@ class _MyAppState extends State<MyApp> {
                     type_other = value!;
                   });
                 },
-                activeColor: Colors.grey[400],
+                activeColor: Colors.red[700],
                 checkColor: Colors.white,
               ),
             ],
@@ -328,16 +328,16 @@ class Wine extends StatelessWidget {
                 child: Row(children: [
                   Image.asset(
                       'assets/images/' + name.replaceAll(" ", "") + ".PNG"),
-                  Column(
+                  Expanded(
+                      child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
-                        child: Text(
-                          this.name,
-                          style: TextStyle(fontSize: 15),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                      Expanded(
+                          child: Text(
+                        this.name,
+                        style: TextStyle(fontSize: 15),
+                        overflow: TextOverflow.ellipsis,
+                      )),
                       Row(children: [
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -385,7 +385,7 @@ class Wine extends StatelessWidget {
                         ]),
                       ])
                     ],
-                  )
+                  ))
                 ]))));
   }
 }
