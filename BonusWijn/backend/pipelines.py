@@ -2,6 +2,8 @@ import jumbo
 import vivino
 import json
 
+import requests
+
 
 # ----------------
 # AH pipeline
@@ -22,5 +24,34 @@ def jumbo_pipeline():
     vivino.add_vivino_data("./data/jumbo_filtered_wines.json")
 
 
+# Filter title by removing redundant tokens etc.
+def filter_title(js):
+    '''
+    js : json 
+        json with all wines
+    '''
+    for wine in js:
+        wine['title'] = wine['title'].replace('-', '').replace('750ML', '').replace('750Ml', '').strip()
+        wine['title'] = wine['title'].replace('  ', ' ')
+    return js 
+
+
+def get_images(data):
+    for wine in data:
+        name = wine['title'].replace(" ", "")
+        link = wine['images'][0]['url']
+        response = requests.get(link)
+
+        with open("/Users/Lex/Desktop/Software Projects/Wijnhandel/BonusWijn/BonusWijn/frontend/myapp/assets/images/" + name + ".PNG", "wb") as write_file:
+            write_file.write(response.content)
+            write_file.close()
+
+
 def plus_pipeline():
     pass
+
+
+if __name__ == '__main__':
+    with open('./processed_data/jumbo_vivino_wines.json', 'r+') as file:
+        data = json.load(file)
+        get_images(data)

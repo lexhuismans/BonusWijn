@@ -27,7 +27,8 @@ HEADERS = {
     "X-Requested-With": "XMLHttpRequest",
 }
 
-
+'''
+# Old
 def get_wine_of_url(url):
     """
     Get the first wine in search url
@@ -50,6 +51,7 @@ def get_wine_of_url(url):
     j = jsonstr[35:-9]
 
     return json.loads(j)
+'''
 
 def get_first_wine_url(url):
     """

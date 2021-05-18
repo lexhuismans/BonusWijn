@@ -5,6 +5,9 @@ import json
 
 
 def get_all_from_query(query='wijn'):
+    '''
+    Get all the items from a search query.
+    '''
     connector = JumboConnector()
 
     size = 30
@@ -16,9 +19,10 @@ def get_all_from_query(query='wijn'):
 
     response = response['products']['data']
     # Save result in file
+    
     with open('./data/jumbo_wijn.json', 'w') as outfile:
         json.dump(response, outfile)
-
+    
     # Return json response
     return response
 
@@ -29,6 +33,7 @@ def format_price(price):
 
 def filter_products_jumbo(data):
     '''
+    Filter wine from Jumbo json. 
     Params
     ------
     data : json
@@ -79,7 +84,7 @@ def format_for_use(wines):
         try:
             wine_object = {}
 
-            wine_object['title'] = wine['title']
+            wine_object['title'] = wine['title'].replace('-','').replace('750ML', '').replace('750Ml', '').replace('750ML', '').strip()
 
             # images
             wine_object['images'] = wine['imageInfo']['primaryView']
