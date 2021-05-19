@@ -359,7 +359,7 @@ class Wine extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 10, color: Colors.grey[400]))
                               ]),
-                              Text("Store: " + this.store,
+                              Text(this.store,
                                   style: TextStyle(
                                     fontSize: 12,
                                   )),
