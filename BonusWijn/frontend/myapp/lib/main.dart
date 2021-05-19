@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:ui';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -332,12 +333,39 @@ class Wine extends StatelessWidget {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                          child: Text(
-                        this.name,
-                        style: TextStyle(fontSize: 15),
-                        overflow: TextOverflow.ellipsis,
-                      )),
+                      Container(
+                        child: Row(
+                          children: [
+                            Flexible(
+                                child: Text(
+                              this.name,
+                              style: TextStyle(fontSize: 15),
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                            Container(
+                              padding: const EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.red[700],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '€' + this.bonus_price.toString() + '/',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Icon(
+                                    Icons.wine_bar_rounded,
+                                    color: Colors.white,
+                                    size: 15,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Row(children: [
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -359,10 +387,29 @@ class Wine extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 10, color: Colors.grey[400]))
                               ]),
+<<<<<<< HEAD
                               Text(this.store,
                                   style: TextStyle(
                                     fontSize: 12,
                                   )),
+=======
+                              Container(
+                                padding: const EdgeInsets.all(5.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.yellow[700],
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      this.store,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+>>>>>>> 41d16f5d6be916e20364e79582b182b7b977bb96
                             ]),
                         Column(children: [
                           Text(this.rating.toString(),
@@ -383,7 +430,32 @@ class Wine extends StatelessWidget {
                                 fontSize: 12,
                               )),
                         ]),
-                      ])
+                        Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.red[700],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '€' + this.bonus_price.toString() + '/',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Icon(
+                                    Icons.wine_bar_rounded,
+                                    color: Colors.white,
+                                    size: 15,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
                     ],
                   ))
                 ]))));
