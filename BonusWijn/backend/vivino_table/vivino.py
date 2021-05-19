@@ -4,7 +4,6 @@ import time
 import re
 
 import requests
-from bs4 import BeautifulSoup
 
 JSONHEADERS = {
     "Accept": "application/json",
