@@ -14,7 +14,10 @@ def find_title(title, wine_name_dict):
             return wine_name_dict[title]
         else:
             print('wine not contained yet')
-            vivino_json = get_json_from_query(title)
+            try:
+                vivino_json = get_json_from_query(title)
+            except:
+                vivino_json = "no data"
             wine_name_dict[title] = vivino_json
             time.sleep(5)
             return vivino_json
@@ -32,12 +35,12 @@ with open('./raw_supermarket/jumbo_wines_titles.json', 'r') as file:
 
 title_list = title_list + title_list2
 
-with open('./vivino_data/name_data_dict.pickle', 'rb') as handle:
+with open('./vivino_data/name_data_dict_copy.pickle', 'rb') as handle:
     wine_name_dict = pickle.load(handle)
 
 for index, title in enumerate(title_list):
     vivino = find_title(title, wine_name_dict)
     if (index % 100) == 0:
         pprint(vivino)
-        with open('./vivino_data/name_data_dict.pickle', 'wb') as handle:
+        with open('./vivino_data/name_data_dict_complete.pickle', 'wb') as handle:
             pickle.dump(wine_name_dict, handle)
