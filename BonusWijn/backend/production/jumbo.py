@@ -48,24 +48,31 @@ def format_for_use(store_data):
     wine_object['images'] = store_data['imageInfo']['primaryView']
 
     # bottle size
-    if store_data['quantity'] in ['750 ml', '75 cl', '750 ml.', '0,75 i', '75 cl.', '0,75 liter']:
-        wine_object['bottleSize'] = "0,75 l"
-    elif store_data['quantity'] == '250 ml' or store_data['quantity'] == '250.0 ml':
-        wine_object['bottleSize'] = "0,25 l"
-    elif store_data['quantity'] == '1500.0 ml':
-        wine_object['bottleSize'] = '1,5 l'
-    elif store_data['quantity'] == '6 x 750 ml' or store_data['quantity'] == '6 x 75 cl':
-        wine_object['bottleSize'] = '6 x 0,75 l'
-    elif store_data['quantity'] == '6 x 6000.0 ml':
-        wine_object['bottleSize'] = '6 x 1 l'
-    elif store_data['quantity'] == '20 cl':
-        wine_object['bottleSize'] = '0,2 l'
-    elif store_data['quantity'] == '1 l':
-        wine_object['bottleSize'] = '1 l'
-    elif store_data['quantity'] == '375 ml' or store_data['quantity'] == '37,5 cl' or store_data['quantity'] == '375 ml.':
-        wine_object['bottleSize'] = '0,375 l'
+    if 'quantity' in store_data:
+        if store_data['quantity'] in ['750 ml', '75 cl', '750 ml.', '0,75 i', '75 cl.', '0,75 liter', '0,75 l', '750.0 ml', '0.75 liter']:
+            wine_object['bottleSize'] = "0,75 l"
+        elif store_data['quantity'] in ['250 ml', '250.0 ml', '25 cl.']:
+            wine_object['bottleSize'] = "0,25 l"
+        elif store_data['quantity'] == '1500.0 ml':
+            wine_object['bottleSize'] = '1,5 l'
+        elif store_data['quantity'] in ['6 x 750 ml', '6 x 75 cl', '6 x 0,75 l']:
+            wine_object['bottleSize'] = '6 x 0,75 l'
+        elif store_data['quantity'] in ['6 x 6000.0 ml', '6 x 1 l']:
+            wine_object['bottleSize'] = '6 x 1 l'
+        elif store_data['quantity'] in ['50 cl']:
+            wine_object['bottleSize'] = '0,5 l'
+        elif store_data['quantity'] == '20 cl':
+            wine_object['bottleSize'] = '0,2 l'
+        elif store_data['quantity'] in ['18.7 cl']:
+            wine_object['quantity'] = '0,187 l'
+        elif store_data['quantity'] == '1 l':
+            wine_object['bottleSize'] = '1 l'
+        elif store_data['quantity'] in ['375 ml', '37,5 cl', '375 ml.']:
+            wine_object['bottleSize'] = '0,375 l'
+        #else:
+            #print('Skip: ', store_data['title'])
     else:
-        print('skip: ', store_data['title'])
+        print('No quantity: ', store_data['title'])
         return None
 
     # Prices
@@ -118,7 +125,7 @@ def format_for_use(store_data):
             print('Promotion niet gevonden:')
             print(promotion)
     else:
-        wine_object['promotionType'] = 'None'
+        wine_object['promotionType'] = None
     
     if '6 x' in store_data['title'] or '6x' in store_data['title']:
         wine_object['amountOfBottles'] = 6
