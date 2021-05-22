@@ -66,7 +66,7 @@ def find_title(title, wine_name_dict):
     Find vivino wine json in database. 
     '''
     if title in wine_name_dict:
-        print("already contained")
+        #print("already contained")
         return filter_vivino_data(wine_name_dict[title])
     else:
         print('Wine not contained yet: ', title)
@@ -91,8 +91,8 @@ def filter_vivino_data(vivino_data):
     # Get rating and number of review
     wine_data = vivino_data['vintage']['wine']
     if int(wine_data['vintages'][0]['statistics']['ratings_count']) > 1000:
-        filtered_vivino['rating'] = wine_data['vintages'][1]['statistics']['ratings_average']
-        filtered_vivino['numberOfReviews'] = wine_data['vintages'][1]['statistics']['ratings_count']
+        filtered_vivino['rating'] = wine_data['vintages'][0]['statistics']['ratings_average']
+        filtered_vivino['numberOfReviews'] = wine_data['vintages'][0]['statistics']['ratings_count']
     else:  # Take all year ratings 
         filtered_vivino['rating'] = vivino_data['vintage']['statistics']['ratings_average']
         filtered_vivino['numberOfReviews'] = vivino_data['vintage']['statistics']['ratings_count']
@@ -128,11 +128,12 @@ def filter_vivino_data(vivino_data):
 
     # Food
     foods = []
-    for food in wine_data['foods']:
-        if 'fish' in food['name']:
-            foods.append('Fish')
-        else:
-            foods.append(food['name'])
+    if 'foods' in wine_data:
+        for food in wine_data['foods']:
+            if 'fish' in food['name']:
+                foods.append('Fish')
+            else:
+                foods.append(food['name'])
     filtered_vivino['foods'] = foods
         
     return filtered_vivino
