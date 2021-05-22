@@ -1,41 +1,43 @@
 import json
 import time
+import pickle
 
 from pprint import pprint
 
 from vivino import get_json_from_query
 
 
-def find_title(title):
-    with open('./vivino_data/vivino_data.json', 'r') as file:
-        vivino_data = json.load(file)
-        if title in vivino_data:
-            return vivino_data[title]
+def find_title(title, wine_name_dict):
+        print(title)
+        if title in wine_name_dict:
+            print("already contained")
+            return wine_name_dict[title]
         else:
+            print('wine not contained yet')
             vivino_json = get_json_from_query(title)
-            vivino_data.append({title: vivino_json})
-            pprint(vivino_data)
-            with open('./vivino_data/vivino_data.json', 'w') as file:
-                json.dump(vivino_data, file)
+            wine_name_dict[title] = vivino_json
+            time.sleep(5)
             return vivino_json
 
-# Reformat
-with open('./vivino_data/vivino_data.json', 'r') as file:
-    vivino_data = json.load(file)
-    new_vivino_list = []
-    for item in vivino_data:
-        title = list(item.keys())[0]
-        viv_json = item[title]
-        new_vivino_list.append({'title': title, 'vivino': viv_json})
 
-    with open('./vivino_data/vivino_data_new.json', 'w') as outfile:
-        json.dump(new_vivino_list, outfile)
+# with open('./raw_supermarket/jumbo_wines_titles.json', 'r') as file:
+#     title_list = json.load(file)
 
-'''
-with open('./raw_supermarket/jumbo_wines_titles.json', 'r') as file:
+with open('./raw_supermarket/ah_wine_names.json', 'r') as file:
     title_list = json.load(file)
-    for title in title_list:
-        vivino = find_title(title)
+
+
+with open('./raw_supermarket/jumbo_wines_titles.json', 'r') as file:
+    title_list2 = json.load(file)
+
+title_list = title_list + title_list2
+
+with open('./vivino_data/name_data_dict.pickle', 'rb') as handle:
+    wine_name_dict = pickle.load(handle)
+
+for index, title in enumerate(title_list):
+    vivino = find_title(title, wine_name_dict)
+    if (index % 100) == 0:
         pprint(vivino)
-        time.sleep(10)
-'''
+        with open('./vivino_data/name_data_dict.pickle', 'wb') as handle:
+            pickle.dump(wine_name_dict, handle)

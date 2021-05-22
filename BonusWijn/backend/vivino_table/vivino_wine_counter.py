@@ -1,12 +1,13 @@
 import json
+import pickle
 
 
 
-with open('./vivino_data/vivino_data.json', 'r') as file:
-    vivino_data = json.load(file)
+with open('./vivino_data/name_data_dict_copy.pickle', 'rb') as handle:
+    wine_name_dict = pickle.load(handle)
 
 
-print(len(vivino_data))
-
-for wine in vivino_data:
-    print(wine)
+# print(len(wine_name_dict.keys()))
+#
+for wine in wine_name_dict.keys():
+    print(wine_name_dict[wine])
