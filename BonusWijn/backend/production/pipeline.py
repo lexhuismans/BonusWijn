@@ -2,6 +2,7 @@
 
 def make_jumbo():
     # Get all wine Jumbo 
+    # Filter out crazy wines zoals 'azijn' 
     # format it to {title: 'title', store: 'jumbo', store_data: 'jumbo data'}
 
     # Add vivino data
