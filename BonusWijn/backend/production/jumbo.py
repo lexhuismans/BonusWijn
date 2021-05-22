@@ -82,6 +82,7 @@ def format_for_use(store_data):
     
     # Promotion
     if 'promotion' in store_data:
+        wine_object['bonus'] = True
         promotion = store_data['promotion']['tags'][0]['text']
         if promotion == 'Alleen online':
             wine_object['promotionType'] = 'online'
@@ -125,7 +126,7 @@ def format_for_use(store_data):
             print('Promotion niet gevonden:')
             print(promotion)
     else:
-        wine_object['promotionType'] = None
+        wine_object['bonus'] = False
     
     if '6 x' in store_data['title'] or '6x' in store_data['title']:
         wine_object['amountOfBottles'] = 6
