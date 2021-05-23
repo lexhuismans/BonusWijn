@@ -1,7 +1,9 @@
 import json
 import pickle
-from pprint import pprint
 import random
+from pprint import pprint
+
+import requests
 
 import ah
 import jumbo
@@ -117,13 +119,19 @@ def make_AH(wines=None):
 
     return formatted_wines
 
-with open('./files_out/ah_formatted.json', 'r') as file:
-    ah_data = json.load(file)
+def get_images(wines):
+    """
+    Get all the images from a formatted wines list. 
+    """
+    # Add check if outfile is already in!
+    for wine in wines:
+        name = wine['title'].replace(" ", "")
+        try:
+            link = wine['store_data']['images']['url']
+        except TypeError:
+            linke = wine['store_data']['images'][0]['url']
+        response = requests.get(link)
+        file_path = "./files_out/images/" + name + ".png"
+        with open(file_path, "wb") as write_file:
+            write_file.write(response.content)
 
-with open('./files_out/jumbo_formatted.json', 'r') as file:
-    jumbo_data = json.load(file)
-
-with open('./files_out/sorted.json', 'w') as outfile:
-    total = ah_data + jumbo_data
-    random.shuffle(total)
-    json.dump(total, outfile)
