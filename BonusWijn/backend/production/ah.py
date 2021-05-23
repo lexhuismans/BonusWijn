@@ -61,7 +61,7 @@ def format_for_use(wines):
         wine_object['volume'] = wine['salesUnitSize']
         try:
             if wine['isBonus']:
-                wine_object['Bonus'] = True
+                wine_object['bonus'] = True
                 if wine['promotionType'] == 'NATIONAL' or wine['promotionType']== "PERPETUAL" or wine['promotionType'] =="GALL":
                     wine_object['promotion_type'] = 'normal'
                 elif wine['promotionType'] == 'AHONLINE':
@@ -97,7 +97,7 @@ def format_for_use(wines):
                     wine_object['amount_of_bottles'] = 1
 
             else:
-                wine_object['Bonus'] = False
+                wine_object['bonus'] = False
                 if "6 x" in wine['salesUnitSize']:
                     wine_object['original_price'] = wine['priceBeforeBonus']
                     wine_object['amount_of_bottles'] = 6
@@ -106,7 +106,7 @@ def format_for_use(wines):
                     wine_object['original_price'] = wine['priceBeforeBonus']
                     wine_object['amount_of_bottles'] = 1
         except:
-            wine_object['Bonus'] = False
+            wine_object['bonus'] = False
             if "6 x" in wine['salesUnitSize']:
                 wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
                 wine_object['amount_of_bottles'] = 6
