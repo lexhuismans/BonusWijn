@@ -36,7 +36,7 @@ def format_for_use(wines):
     for wine in wines:
 
         wine_object = {}
-
+        store_data = {}
         # filter out non wines
         if "Van Wijngaarden's" in wine['title']:
             continue
@@ -53,67 +53,68 @@ def format_for_use(wines):
 
         # images
         try:
-            wine_object['images'] = wine['images'][-2]
+            store_data['images'] = wine['images'][-2]
         except:
             continue
 
         wine_object['store'] =  wine['shopType']
-        wine_object['volume'] = wine['salesUnitSize']
+        store_data['volume'] = wine['salesUnitSize']
         try:
             if wine['isBonus']:
-                wine_object['bonus'] = True
+                store_data['bonus'] = True
                 if wine['promotionType'] == 'NATIONAL' or wine['promotionType']== "PERPETUAL" or wine['promotionType'] =="GALL":
-                    wine_object['promotion_type'] = 'normal'
+                    store_data['promotion_type'] = 'normal'
                 elif wine['promotionType'] == 'AHONLINE':
-                    wine_object['promotion_type'] = "AHONLINE"
+                    store_data['promotion_type'] = "AHONLINE"
                 elif wine['promotionType'] == "GALLCARD":
-                    wine_object['promotion_type'] = "GALLCARD"
+                    store_data['promotion_type'] = "GALLCARD"
                 else:
-                    wine_object['promotion_type'] = "none"
+                    store_data['promotion_type'] = "none"
 
                 if wine['bonusMechanism'] == '2E HALVE PRIJS':
-                    wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
-                    wine_object['bonus_price_per_fles'] = 1.5*wine['priceBeforeBonus']
-                    wine_object['amount_of_bottles'] = 2
+                    store_data['original_price_per_fles'] = wine['priceBeforeBonus']
+                    store_data['bonus_price_per_fles'] = 1.5*wine['priceBeforeBonus']
+                    store_data['amount_of_bottles'] = 2
                 elif wine['bonusMechanism'] == "2=1":
-                    wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
-                    wine_object['bonus_price_per_fles'] = wine['priceBeforeBonus']
-                    wine_object['amount_of_bottles'] = 2
+                    store_data['original_price_per_fles'] = wine['priceBeforeBonus']
+                    store_data['bonus_price_per_fles'] = wine['priceBeforeBonus']
+                    store_data['amount_of_bottles'] = 2
                 elif wine['bonusMechanism'] == "-10% VANAF 6 STUKS":
-                    wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
-                    wine_object['bonus_price_per_fles'] = 0.9*wine['priceBeforeBonus']
-                    wine_object['amount_of_bottles'] = 6
+                    store_data['original_price_per_fles'] = wine['priceBeforeBonus']
+                    store_data['bonus_price_per_fles'] = 0.9*wine['priceBeforeBonus']
+                    store_data['amount_of_bottles'] = 6
                 elif wine['bonusMechanism'] == 'BONUS' and "6 x" in wine['salesUnitSize']:
-                    wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
-                    wine_object['bonus_price_per_fles'] = wine['currentPrice']
-                    wine_object['amount_of_bottles'] = 6
+                    store_data['original_price_per_fles'] = wine['priceBeforeBonus']
+                    store_data['bonus_price_per_fles'] = wine['currentPrice']
+                    store_data['amount_of_bottles'] = 6
                 elif "6 x" in wine['salesUnitSize']:
-                    wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
-                    wine_object['bonus_price_per_fles'] = wine['currentPrice']
-                    wine_object['amount_of_bottles'] = 6
+                    store_data['original_price_per_fles'] = wine['priceBeforeBonus']
+                    store_data['bonus_price_per_fles'] = wine['currentPrice']
+                    store_data['amount_of_bottles'] = 6
                 else:
-                    wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
-                    wine_object['bonus_price_per_fles'] = wine['currentPrice']
-                    wine_object['amount_of_bottles'] = 1
+                    store_data['original_price_per_fles'] = wine['priceBeforeBonus']
+                    store_data['bonus_price_per_fles'] = wine['currentPrice']
+                    store_data['amount_of_bottles'] = 1
 
             else:
-                wine_object['bonus'] = False
+                store_data['bonus'] = False
                 if "6 x" in wine['salesUnitSize']:
-                    wine_object['original_price'] = wine['priceBeforeBonus']
-                    wine_object['amount_of_bottles'] = 6
+                    store_data['original_price'] = wine['priceBeforeBonus']
+                    store_data['amount_of_bottles'] = 6
                 else:
                     print(wine)
-                    wine_object['original_price'] = wine['priceBeforeBonus']
-                    wine_object['amount_of_bottles'] = 1
+                    store_data['original_price'] = wine['priceBeforeBonus']
+                    store_data['amount_of_bottles'] = 1
         except:
-            wine_object['bonus'] = False
+            store_data['bonus'] = False
             if "6 x" in wine['salesUnitSize']:
-                wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
-                wine_object['amount_of_bottles'] = 6
+                store_data['original_price_per_fles'] = wine['priceBeforeBonus']
+                store_data['amount_of_bottles'] = 6
             else:
-                wine_object['original_price_per_fles'] = wine['priceBeforeBonus']
-                wine_object['amount_of_bottles'] = 1
+                store_data['original_price_per_fles'] = wine['priceBeforeBonus']
+                store_data['amount_of_bottles'] = 1
 
+        wine_object['store_data'] = store_data
         formated_wines.append(wine_object)
 
     return formated_wines
