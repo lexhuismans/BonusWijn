@@ -1,12 +1,13 @@
 import json
 import pickle
 from pprint import pprint
+import random
 
 import ah
 import jumbo
 import vivino
 
-vivino_data_file = "../vivino_table/vivino_data/name_data_dict_complete_copy.pickle"
+vivino_data_file = "./files_in/name_data_dict_complete_copy.pickle"
 
 
 def make_jumbo(wines=None):
@@ -87,10 +88,42 @@ def make_jumbo(wines=None):
         for x in remove_list:
             web_wine["title"] = web_wine["title"].replace(x, "")
         web_wine["title"] = web_wine["title"].replace("  ", " ").strip()
-        print(web_wine["title"])
+
         # Klaar :)
         formatted_wines.append(web_wine)
 
     with open(vivino_data_file, "wb") as outfile:
         pickle.dump(wine_dict, outfile)
     return formatted_wines
+
+
+def make_AH(wines=None):
+    # Get all wine AH
+    if wines is None:
+        wines = ah.get_all_from_query()
+
+    # Format from AH
+    formatted_wines = ah.format_for_use(wines)
+
+    # Add vivino data
+    with open(vivino_data_file, "rb") as handle:
+        wine_dict = pickle.load(handle)
+    
+    for wine in formatted_wines:
+        wine['vivino'] = vivino.find_title(wine['title'], wine_dict)
+
+    with open(vivino_data_file, "wb") as outfile:
+        pickle.dump(wine_dict, outfile)
+
+    return formatted_wines
+
+with open('./files_out/ah_formatted.json', 'r') as file:
+    ah_data = json.load(file)
+
+with open('./files_out/jumbo_formatted.json', 'r') as file:
+    jumbo_data = json.load(file)
+
+with open('./files_out/sorted.json', 'w') as outfile:
+    total = ah_data + jumbo_data
+    random.shuffle(total)
+    json.dump(total, outfile)

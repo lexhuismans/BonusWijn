@@ -85,10 +85,10 @@ def format_for_use(store_data):
         wine_object['bonus'] = True
         promotion = store_data['promotion']['tags'][0]['text']
         if promotion == 'Alleen online':
-            wine_object['promotionType'] = 'online'
+            wine_object['promotion_type'] = 'online'
             promotion = store_data['promotion']['tags'][1]['text']
         else:
-            wine_object['promotionType'] = 'normal'
+            wine_object['promotion_type'] = 'normal'
         if promotion == '3 halen, 2 betalen':
             wine_object['bonus_price_per_fles'] = 2 * price / 3
             wine_object['amount_of_bottles'] = 3
@@ -101,6 +101,9 @@ def format_for_use(store_data):
         elif promotion == '3 voor 10,00 euro':
             wine_object['bonus_price_per_fles'] = 10 / 3
             wine_object['amount_of_bottles'] = 3
+        elif promotion == '1 voor 23,99 euro':
+            wine_object['bonus_price_per_fles'] = 23.99
+            wine_object['amount_of_bottles'] = 1
         elif promotion == '1 voor 4,49 euro':
             wine_object['bonus_price_per_fles'] = 4.49
             wine_object['amount_of_bottles'] = 1
@@ -126,6 +129,7 @@ def format_for_use(store_data):
             print('Promotion niet gevonden:')
             print(promotion)
     else:
+        wine_object['promotion_type'] = 'none'
         wine_object['bonus'] = False
     
     if '6 x' in store_data['title'] or '6x' in store_data['title']:

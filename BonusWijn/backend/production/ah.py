@@ -117,12 +117,3 @@ def format_for_use(wines):
         formated_wines.append(wine_object)
 
     return formated_wines
-
-
-with open('./files_in/ah_wijn.json', 'r') as outfile:
-    data = json.load(outfile)
-
-all_wines = format_for_use(data)
-
-for wine in all_wines:
-    print(wine)
