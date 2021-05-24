@@ -387,12 +387,6 @@ class Wine extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 10, color: Colors.grey[400]))
                               ]),
-<<<<<<< HEAD
-                              Text(this.store,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  )),
-=======
                               Container(
                                 padding: const EdgeInsets.all(5.0),
                                 decoration: BoxDecoration(
@@ -409,7 +403,6 @@ class Wine extends StatelessWidget {
                                   ],
                                 ),
                               ),
->>>>>>> 41d16f5d6be916e20364e79582b182b7b977bb96
                             ]),
                         Column(children: [
                           Text(this.rating.toString(),
